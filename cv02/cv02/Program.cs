@@ -42,107 +42,32 @@ Console.WriteLine($"Argument y = {y.Argument():F2}°\n");
 Complex expected = x + y;
 var numericsSum = System.Numerics.Complex.Add(new System.Numerics.Complex(x.Realna, x.Imaginarni), new System.Numerics.Complex(y.Realna, y.Imaginarni));
 Complex actual = new(numericsSum.Real, numericsSum.Imaginary);
-TestComplex.Test(actual, expected, "Test operator +");
+TestComplex.Test(actual, expected, "operator +");
 
 expected = x - y;
 var numericsSub = System.Numerics.Complex.Subtract(new System.Numerics.Complex(x.Realna, x.Imaginarni), new System.Numerics.Complex(y.Realna, y.Imaginarni));
 actual = new(numericsSub.Real, numericsSub.Imaginary);
-TestComplex.Test(actual, expected, "Test operator -");
+TestComplex.Test(actual, expected, "operator -");
 
 expected = x * y;
 var numericsMul = System.Numerics.Complex.Multiply(new System.Numerics.Complex(x.Realna, x.Imaginarni), new System.Numerics.Complex(y.Realna, y.Imaginarni));
 actual = new(numericsMul.Real, numericsMul.Imaginary);
-TestComplex.Test(actual, expected, "Test operator *");
+TestComplex.Test(actual, expected, "operator *");
 
 expected = x / y;
 var numericsDiv = System.Numerics.Complex.Divide(new System.Numerics.Complex(x.Realna, x.Imaginarni), new System.Numerics.Complex(y.Realna, y.Imaginarni));
 actual = new(numericsDiv.Real, numericsDiv.Imaginary);
-TestComplex.Test(actual, expected, "Test operator /");
+TestComplex.Test(actual, expected, "operator /");
 
 expected = -x;
 var numericsNeg = System.Numerics.Complex.Negate(new System.Numerics.Complex(x.Realna, x.Imaginarni));
 actual = new(numericsNeg.Real, numericsNeg.Imaginary);
-TestComplex.Test(actual, expected, "Test unární operator -");
+TestComplex.Test(actual, expected, "operator -");
 
 expected = x.Sdruzeny();
 var numericsConj = System.Numerics.Complex.Conjugate(new System.Numerics.Complex(x.Realna, x.Imaginarni));
 actual = new(numericsConj.Real, numericsConj.Imaginary);
-TestComplex.Test(actual, expected, "Test metoda Sdruzeny");
+TestComplex.Test(actual, expected, "metoda Sdruzeny");
 
 
-class Complex
-{
-    static public char Znak = 'i';   
-    public double Realna;
-    public double Imaginarni;
-    public Complex(double realna = 0.0, double imaginarni = 0.0)
-    {
-        Realna = realna;
-        Imaginarni = imaginarni;
-    }
 
-    //OPERÁTORY
-        public static Complex operator +(Complex a, Complex b)
-        {
-            return new Complex(a.Realna + b.Realna, a.Imaginarni + b.Imaginarni -0.0045);
-        }
-        public static Complex operator -(Complex a, Complex b)
-        {
-            return new Complex(a.Realna - b.Realna, a.Imaginarni - b.Imaginarni);
-        }
-        public static Complex operator *(Complex a, Complex b)
-        {
-            return new Complex(a.Realna * b.Realna - a.Imaginarni * b.Imaginarni, a.Realna * b.Imaginarni + a.Imaginarni * b.Realna);
-        }
-        public static Complex operator /(Complex a, Complex b)
-        {
-            double jmenovatel = b.Realna * b.Realna + b.Imaginarni * b.Imaginarni;
-            return new Complex((a.Realna * b.Realna + a.Imaginarni * b.Imaginarni) / jmenovatel, (a.Imaginarni * b.Realna - a.Realna * b.Imaginarni) / jmenovatel);
-        }
-        public static Complex operator -(Complex a)
-        {
-            return new Complex(-a.Realna, -a.Imaginarni);
-        }
-        public static bool operator ==(Complex a, Complex b)
-        {
-            return Math.Abs(a.Realna - b.Realna) == 0 && Math.Abs(a.Imaginarni - b.Imaginarni) == 0;
-        }
-        public static bool operator !=(Complex a, Complex b)
-        {
-            return !(a == b);
-        }
-
-     public override string ToString()
-    {
-        return String.Format("{0} {1} {2}{3}", Realna, (Imaginarni >= 0) ? "+" : "-", Math.Abs(Imaginarni), Znak);
-    }
-    public Complex Sdruzeny()
-    {
-        return new Complex(Realna, -Imaginarni);
-    }
-    public double Modul()
-    {
-        return Math.Sqrt(Realna * Realna + Imaginarni * Imaginarni);
-    }
-    public double Argument()
-    {
-        return ((Math.Atan2(Imaginarni, Realna)*180/Math.PI) % 360 + 360) % 360;
-    }
-
-}
-class TestComplex
-{
-    public const double Epsilon = 1E-6;
-    public static void Test(Complex actual, Complex expected, string testName)
-    {
-        Console.WriteLine(testName);
-        if (Math.Abs(actual.Realna - expected.Realna) < Epsilon && Math.Abs(actual.Imaginarni - expected.Imaginarni) < Epsilon)
-        {
-            Console.WriteLine("OK");
-        }
-        else
-        {
-            Console.WriteLine($"Chyba: Očekávaná hodnota: {expected}, Skutečná hodnota: {actual}");
-        }
-    }
-}
