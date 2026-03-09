@@ -1,0 +1,2 @@
+pro každou tabulku v databazi vytvorim classu, kde 1 parametr (int, string, etc.) bude odpovidat jednomu sloupci v tabulce
+pracuju s tim jen na urovni repositories.

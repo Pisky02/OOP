@@ -1,3 +1,6 @@
 <Solution>
-  <Project Path="projekt.csproj" />
+  <Project Path="../busines/Business.csproj" Id="54fd157c-08e8-4599-9431-a43a677a5459" />
+  <Project Path="../Database/Database.csproj" Id="74500c0d-ae31-4bcd-b888-2fe60accaaaf" />
+  <Project Path="../Shared/Shared.csproj" Id="f7783a1e-93a4-4e23-a341-43ae709662aa" />
+  <Project Path="Website.csproj" />
 </Solution>
