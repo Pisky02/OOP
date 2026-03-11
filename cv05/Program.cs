@@ -2,25 +2,75 @@
 //2. Vytvořte základní třídu Auto a z něj odvozené třídy Nakladni a Osobni.
 //3. Vytvořte v třídě Auto vnořený výčtový typ TypPaliva, který bude reprezentovat typ paliva (Benzin, Nafta).
 //4. Vhodně rozdělte následující členy do výše uvedených tříd dle pravidel OOP.
-    //Odhadněte které členy jsou společné a které jsou spíše specifické pro daný typ vozidla.
-    
-    //Vlastnosti:
-    //VelikostNadrze, StavNadrze, Palivo, MaxOsob, MaxNaklad, PrepravovanyNaklad, PrepravovaneOsoby.
-    //U vlastností, které by se zvenku neměly měnit nastavte set na private nebo protected.
-    //Kontrolujte nastavení vlastností PrepravovanyNaklad a PrepravovaneOsoby a v případě pokusu o nastavení vyšší hodnoty vyvolejte výjimku.
-    //Přidejte metodu Natankuj s argumenty typPaliva a mnozstvi, která zvýší StavNadrze a
-    //v případě, že by měla přetéct nebo při pokusu o natankování nesprávného paliva vyvolejte výjimku.
-
+//Odhadněte které členy jsou společné a které jsou spíše specifické pro daný typ vozidla.
+//Vlastnosti:
+//VelikostNadrze, StavNadrze, Palivo, MaxOsob, MaxNaklad, PrepravovanyNaklad, PrepravovaneOsoby.
+//U vlastností, které by se zvenku neměly měnit nastavte set na private nebo protected.
+//Kontrolujte nastavení vlastností PrepravovanyNaklad a PrepravovaneOsoby a v případě pokusu o nastavení vyšší hodnoty vyvolejte výjimku.
+//Přidejte metodu Natankuj s argumenty typPaliva a mnozstvi, která zvýší StavNadrze a
+//v případě, že by měla přetéct nebo při pokusu o natankování nesprávného paliva vyvolejte výjimku.
 //5. Vytvořte konstruktory odvozených tříd s argumenty, které budou nastavovat vlastnosti, které
-    //jsou pevně dané (jako např. MaxOsob) a budou inicializovat vlastnosti, které se mohou měnit (jako např. inicializace PrepravovaneOsoby na hodnotu 0).
-
+//jsou pevně dané (jako např. MaxOsob) a budou inicializovat vlastnosti, které se mohou měnit (jako např. inicializace PrepravovaneOsoby na hodnotu 0).
 //6. Vytvořte třídu Autoradio. Zakomponujte následující členy s využitím znalostí o zapouzdření.
-    //Vlastnosti: NaladenyKmitocet a RadioZapnuto.Metody:
-    //NastavPredvolbu s argumenty cislo a kmitocet (interně si předvolby ukládejte do privátního členu typu Dictionary<int, double>)
-    //a metodu PreladNaPredvolbu s argumentem cislo (tato nastaví NaladenyKmitocet na předem uloženou hodnotu z NastavPredvolbu).
+//Vlastnosti: NaladenyKmitocet a RadioZapnuto.Metody:
+//NastavPredvolbu s argumenty cislo a kmitocet (interně si předvolby ukládejte do privátního členu typu Dictionary<int, double>)
+//a metodu PreladNaPredvolbu s argumentem cislo (tato nastaví NaladenyKmitocet na předem uloženou hodnotu z NastavPredvolbu).
 //7. Zakomponujte pomocí vhodného vztahu Autoradio do Auto a zveřejněte potřebné členy.
 //8. Do tříd Nakladni, Osobni a Autoradio doplňte metodu ToString, která bude zobrazovat
-    //informace o stavu objektu (u aut např. stav nádrže, počet osob nebo nákladu atd.)
+//informace o stavu objektu (u aut např. stav nádrže, počet osob nebo nákladu atd.)
 //9. Do metody Main napište ukázku na použití výše uvedených odvozených tříd (základní třídy
-    //neinstancujte), nastavení a čtení jejich vlastností a provolání metod. Případné výjimky
-    //zachyťte a zobrazte. Stav zobrazujte pomocí provolání ToString.
+//neinstancujte), nastavení a čtení jejich vlastností a provolání metod. Případné výjimky
+//zachyťte a zobrazte. Stav zobrazujte pomocí provolání ToString.
+Osobni bleskMcqueen = new Osobni(100, Auto.TypPaliva.Benzin, 2);
+
+Console.WriteLine("--- Test osobniho auta ---");
+try
+{
+  //  Osobni bleskMcqueen = new Osobni (100, Auto.TypPaliva.Benzin, 2);
+
+    bleskMcqueen.Natankuj(Auto.TypPaliva.Benzin, 80);
+    bleskMcqueen.PrepravovaneOsoby = 1;
+
+    bleskMcqueen.Radio.RadioZapnuto = true;
+    bleskMcqueen.Radio.NastavPredvolbu(1, 91.8);
+    bleskMcqueen.Radio.PreladNaPredvolbu(1);
+
+    Console.WriteLine(bleskMcqueen.ToString());
+    Console.WriteLine(Environment.NewLine);
+
+    Console.WriteLine("Pokusi se nastoupit 3 lidi:");
+    bleskMcqueen.PrepravovaneOsoby = 3;
+   }
+catch (Exception ex)
+{
+    Console.WriteLine($"CHYBA: {ex.Message}");
+}
+
+try
+{
+    Console.WriteLine("Pokus o preladeni radia na neexistujici predvolbu:");
+    bleskMcqueen.Radio.PreladNaPredvolbu(2);
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"CHYBA: {ex.Message}");
+}
+Console.WriteLine(Environment.NewLine);
+Console.WriteLine("--- Test nakladniho auta ---");
+try
+{
+    Nakladni burak = new Nakladni(300, Auto.TypPaliva.Nafta, 15000);
+
+    burak.Natankuj(Auto.TypPaliva.Nafta, 100);
+    burak.PrepravovanyNaklad = 8000;
+
+    Console.WriteLine(burak.ToString());
+
+    Console.WriteLine(Environment.NewLine);
+    Console.WriteLine("Pokus o natankování benzínu do naftového auta:");
+    burak.Natankuj(Auto.TypPaliva.Benzin, 50);
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"CHYBA: {ex.Message}");
+}
