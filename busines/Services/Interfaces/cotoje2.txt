@@ -1,1 +1,0 @@
-tady budou interface pro servisy (knihovna servisu)
