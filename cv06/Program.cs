@@ -14,6 +14,7 @@
 //objekty. Procházejte pole, provolávejte metodu Kresli a s využitím operátoru is sečtěte
 //celkovou plochu, celkový povrch a celkový objem.
 
+//priste misto slozek muzu vytvorit namespace napr geometrie.2d a v tom namespacu nadefinovat vsechny classy jednotlivych obrazcu etc
 using cv06;
 
 GrObjekt[] objekty =
